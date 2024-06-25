@@ -1,5 +1,6 @@
 import {
     GetUserByIdController,
+    GetUserByEmailController,
     CreateUserController,
     UpdateUserController,
     DeleteUserController,
@@ -15,6 +16,7 @@ import {
 } from '../../repositories/postgres/index.js'
 import {
     GetUserByIdUseCase,
+    GetUserByEmailUseCase,
     CreateUserUseCase,
     UpdateUserUseCase,
     DeleteUserUseCase,
@@ -33,6 +35,20 @@ export const makeGetUserByIdController = () => {
     const getUserByIdController = new GetUserByIdController(getUserByIdUseCase)
 
     return getUserByIdController
+}
+
+export const makeGetUserByEmailController = () => {
+    const getUserByEmailRepository = new PostgresGetUserByEmailRepository()
+
+    const getUserByEmailUseCase = new GetUserByEmailUseCase(
+        getUserByEmailRepository,
+    )
+
+    const getUserByEmailController = new GetUserByEmailController(
+        getUserByEmailUseCase,
+    )
+
+    return getUserByEmailController
 }
 
 export const makeCreateUserController = () => {

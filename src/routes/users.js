@@ -4,10 +4,19 @@ import {
     makeDeleteUserController,
     makeGetUserBalanceController,
     makeGetUserByIdController,
+    makeGetUserByEmailController,
     makeUpdateUserController,
 } from '../factories/controllers/user.js'
 
 export const usersRouter = Router()
+
+usersRouter.post('/auth', async (request, response) => {
+    const getUserByEmailController = makeGetUserByEmailController()
+
+    const { statusCode, body } = await getUserByEmailController.execute(request)
+
+    response.status(statusCode).send(body)
+})
 
 usersRouter.get('/:userId', async (request, response) => {
     const getUserByIdController = makeGetUserByIdController()

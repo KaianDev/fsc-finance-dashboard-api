@@ -38,6 +38,12 @@ export const createUserSchema = z.object({
         }),
 })
 
+export const authUserSchema = createUserSchema.omit({
+    id: true,
+    first_name: true,
+    last_name: true,
+})
+
 export const updateUserSchema = createUserSchema.partial().strict({
     message: 'Some provided field is not allowed.',
 })
